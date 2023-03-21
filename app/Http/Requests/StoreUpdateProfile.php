@@ -25,7 +25,7 @@ class StoreUpdateProfile extends FormRequest
     {
         $id = $this->segment(3);
         return [
-            'name' => "required|min:5|max:20|unique:profile,name,{$id},id", //passando a exceção caso o id seja igual ao $id (da rota) - para que seja editado
+            'name' => "required|min:5|max:20|unique:profiles,name,{$id},id", //passando a exceção caso o id seja igual ao $id (da rota) - para que seja editado
             'description' => 'nullable|min:3|max:255',
         ];
     }

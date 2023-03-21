@@ -34,6 +34,7 @@ class DetailPlanController extends Controller
        
     }
     public function create($id){
+
         if(!$plan = $this->plan->where('id', $id)->first()){
             return redirect()->back();
         }

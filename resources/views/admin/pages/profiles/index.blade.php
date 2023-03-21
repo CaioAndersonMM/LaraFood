@@ -10,14 +10,14 @@
 @section('content')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{route('perfil.index')}}">Perfil</a></li>
+        <li class="breadcrumb-item active"><a href="{{route('perfil.index')}}">Perfis</a></li>
     </ol>
     <h1>Painel</h1>
     <br>
     <div class="card">
         <div class="card-header">
             {{-- #filtros --}}
-            <form action="{{route('planos.search')}}" method="POST" class="form form-inline">
+            <form action="{{route('perfil.search')}}" method="POST" class="form form-inline">
                 @csrf
                 <input class="form-control" type="text" name="filter" placeholder="{{ $filters['filter'] ?? 'Digite o nome ou a descrição'}}">
                 {{--                                                            -> se existir filters coloca o valor do campo no value do input, se não passa default--}}
@@ -58,7 +58,7 @@
                 {!! $profiles->links() !!} {{-- paginação normal sem filters --}}
             @endif
             
-            <a href="{{route('perfil.create')}}" class="btn btn-dark"> <i class="fas fa-plus-circle"></i> Criar Plano</a> 
+            <a href="{{route('perfil.create')}}" class="btn btn-dark"> <i class="fas fa-plus-circle"></i> Criar Perfil</a> 
         </div>
     </div>
 @stop
