@@ -300,6 +300,11 @@ return [
             'url'  => 'admin/perfil',
             'icon' => 'fas fa-address-card',
         ],
+        [
+            'text' => ' Permissões',
+            'url'  => 'admin/permission',
+            'icon' => 'fab fa-phabricator',
+        ],
     ],
 
     /*

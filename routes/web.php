@@ -5,8 +5,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
         ->namespace('Admin')
+        ->middleware('auth')
         ->group(function(){
 
+    /*
+    *    Rota Permissions Perfil
+    */
+    Route::post('perfil/{id}/permission/create', 'ACL\PermissionProfileController@vincularPermissionProfile')->name('perfil.permission.attach');
+    Route::get('perfil/{id}/permission/create', 'ACL\PermissionProfileController@permissionAvailable')->name('perfil.permission.available');
+    //Route::any('permission/search', 'ACL\PermissionController@search')->name('permissionperfil.search'); seria o filtro mas não acho necessário
+    Route::get('perfil/{id}/permission', 'ACL\PermissionProfileController@permission')->name('perfil.permission');
+
+    /*
+    *    Rota Permissions
+    */
+    
+    Route::any('permission/search', 'ACL\PermissionController@search')->name('permission.search');
+    Route::resource('permission', 'ACL\PermissionController');
     /*
     *    Rota Profiles
     */
@@ -51,4 +66,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+/*
+*    Auth Routes
+*/
+Auth::routes();
 
