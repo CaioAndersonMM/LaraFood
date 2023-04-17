@@ -5,19 +5,54 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
         ->namespace('Admin')
+        ->middleware('auth')
         ->group(function(){
 
+     /*
+    *    Rota Categorias
+    */
+    Route::any('categories/search', 'CategoryController@search')->name('categories.search');
+    Route::resource('categories', 'CategoryController');
+
+
+     /*
+    *    Rota Users
+    */
+    Route::any('users/search', 'UserController@search')->name('users.search');
+    Route::resource('users', 'UserController');
+
+
+    /*
+    *    Rota Permissions Perfil
+    */
+    Route::post('perfil/{id}/permission/create', 'ACL\PermissionProfileController@vincularPermissionProfile')->name('perfil.permission.attach');
+    Route::get('perfil/{id}/permission/create', 'ACL\PermissionProfileController@permissionAvailable')->name('perfil.permission.available');
+    //Route::any('permission/search', 'ACL\PermissionController@search')->name('permissionperfil.search'); seria o filtro mas não acho necessário
+    Route::get('perfil/{id}/permission', 'ACL\PermissionProfileController@permission')->name('perfil.permission');
+
+    /*
+    *    Rota Permissions
+    */
+    
+    Route::any('permission/search', 'ACL\PermissionController@search')->name('permission.search');
+    Route::resource('permission', 'ACL\PermissionController');
+    /*
+    *    Rota Profiles
+    */
+    Route::any('perfil/search', 'ACL\ProfileController@search')->name('perfil.search');
     Route::resource('perfil', 'ACL\ProfileController');
 
     /*
     *    Rota DetailsPlanos
     */
+
+    Route::get('planos/{id}/details/create', 'DetailPlanController@create')->name('details.planos.create');
     Route::delete('planos/{id}/details/{idDetail}', 'DetailPlanController@destroy')->name('details.planos.delete');
     Route::get('planos/{id}/details/{idDetail}', 'DetailPlanController@show')->name('details.planos.show');
+    //Route::get('planos/{id}/details/create', 'DetailPlanController@create')->name('details.planos.create'); pq a ordem importa tanto aqui?
     Route::put('planos/{id}/details/{idDetail}', 'DetailPlanController@update')->name('details.planos.update');
     Route::get('planos/{id}/details/{idDetail}/edit', 'DetailPlanController@edit')->name('details.planos.edit');
     Route::post('planos/{id}/details/store', 'DetailPlanController@store')->name('details.planos.store');
-    Route::get('planos/{id}/details/create', 'DetailPlanController@create')->name('details.planos.create');
     Route::get('planos/{id}/details', 'DetailPlanController@index')->name('details.planos.index');
 
     /*
@@ -40,9 +75,14 @@ Route::prefix('admin')
     //Essas rotas eram: admin/planos/...    Admin/PlanController@funcao
 });
 
+    /*
+    *    Site 
+    */
+    Route::get('/plan/{id}', 'Site\SiteController@plan')->name('plan.subscription');
+    Route::get('/', 'Site\SiteController@index')->name('site.home');
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+/*
+*    Auth Routes
+*/
+Auth::routes();
 

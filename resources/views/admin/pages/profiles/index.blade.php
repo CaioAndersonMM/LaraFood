@@ -10,14 +10,14 @@
 @section('content')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{route('admin.index')}}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{route('perfil.index')}}">Perfil</a></li>
+        <li class="breadcrumb-item active"><a href="{{route('perfil.index')}}">Perfis</a></li>
     </ol>
     <h1>Painel</h1>
     <br>
     <div class="card">
         <div class="card-header">
             {{-- #filtros --}}
-            <form action="{{route('planos.search')}}" method="POST" class="form form-inline">
+            <form action="{{route('perfil.search')}}" method="POST" class="form form-inline">
                 @csrf
                 <input class="form-control" type="text" name="filter" placeholder="{{ $filters['filter'] ?? 'Digite o nome ou a descrição'}}">
                 {{--                                                            -> se existir filters coloca o valor do campo no value do input, se não passa default--}}
@@ -30,7 +30,7 @@
                     <thead>
                         <tr>
                             <th>Nome</th>
-                            <th width="20%">Ações</th>
+                            <th width="30%">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,9 +39,10 @@
                                 <td>
                                     {{ $profile->name }}
                                 </td>
-                                <td style="width: 10px;" >
+                                <td style="width: 100px;" >
                                     <a href="{{route('perfil.show', $profile->id )}}" class="btn btn-info"><i class="fas fa-eye"></i>  Ver</a>
                                     <a href="{{route('perfil.edit', $profile->id )}}" class="btn btn-warning"><i class="far fa-edit"></i> Editar</a>
+                                    <a href="{{route('perfil.permission', $profile->id )}}" class="btn btn-dark"><i class="fab fa-phabricator"></i> Permissões</a>
                                 </td>
                                 <td>
                                     
@@ -58,7 +59,7 @@
                 {!! $profiles->links() !!} {{-- paginação normal sem filters --}}
             @endif
             
-            <a href="{{route('perfil.create')}}" class="btn btn-dark"> <i class="fas fa-plus-circle"></i> Criar Plano</a> 
+            <a href="{{route('perfil.create')}}" class="btn btn-dark"> <i class="fas fa-plus-circle"></i> Criar Perfil</a> 
         </div>
     </div>
 @stop
