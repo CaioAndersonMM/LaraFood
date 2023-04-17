@@ -8,6 +8,20 @@ Route::prefix('admin')
         ->middleware('auth')
         ->group(function(){
 
+     /*
+    *    Rota Categorias
+    */
+    Route::any('categories/search', 'CategoryController@search')->name('categories.search');
+    Route::resource('categories', 'CategoryController');
+
+
+     /*
+    *    Rota Users
+    */
+    Route::any('users/search', 'UserController@search')->name('users.search');
+    Route::resource('users', 'UserController');
+
+
     /*
     *    Rota Permissions Perfil
     */
@@ -61,11 +75,11 @@ Route::prefix('admin')
     //Essas rotas eram: admin/planos/...    Admin/PlanController@funcao
 });
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
+    /*
+    *    Site 
+    */
+    Route::get('/plan/{id}', 'Site\SiteController@plan')->name('plan.subscription');
+    Route::get('/', 'Site\SiteController@index')->name('site.home');
 
 /*
 *    Auth Routes

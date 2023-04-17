@@ -253,7 +253,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -304,6 +304,16 @@ return [
             'text' => ' Permissões',
             'url'  => 'admin/permission',
             'icon' => 'fab fa-phabricator',
+        ],
+        [
+            'text' => ' Usuários',
+            'url'  => 'admin/users',
+            'icon' => 'fas fa-users',
+        ],
+        [
+            'text' => ' Categorias',
+            'url'  => 'admin/categories  ',
+            'icon' => 'fas fa-layer-group',
         ],
     ],
 
