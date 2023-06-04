@@ -30,7 +30,7 @@ class StoreUpdateUser extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', "unique:users,email,{$id},id"],
             'password' => ['required', 'string', 'min:8'],
         ];
-        if ($this->method() == 'PUT') {
+        if ($this->method() == 'PUT') { //quando tiver editando - esquece a senha (nullable) - pois edit é method put
             $rules['password'] = ['nullable', 'string', 'min:6', 'max:16'];
         }
         return $rules;

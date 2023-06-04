@@ -43,6 +43,8 @@
                                     <a href="{{route('perfil.show', $profile->id )}}" class="btn btn-info"><i class="fas fa-eye"></i>  Ver</a>
                                     <a href="{{route('perfil.edit', $profile->id )}}" class="btn btn-warning"><i class="far fa-edit"></i> Editar</a>
                                     <a href="{{route('perfil.permission', $profile->id )}}" class="btn btn-dark"><i class="fab fa-phabricator"></i> Permissões</a>
+                                    <a href="{{ route('profiles.plans', $profile->id) }}" class="btn btn-info"><i class="fas fa-list-alt"></i> Planos</a>
+
                                 </td>
                                 <td>
                                     

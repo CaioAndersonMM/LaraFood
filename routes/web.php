@@ -8,6 +8,13 @@ Route::prefix('admin')
         ->middleware('auth')
         ->group(function(){
 
+
+     /*
+    *    Rota Produtos
+    */
+    Route::any('products/search', 'ProductController@search')->name('products.search');
+    Route::resource('products', 'ProductController');
+
      /*
     *    Rota Categorias
     */
@@ -22,13 +29,27 @@ Route::prefix('admin')
     Route::resource('users', 'UserController');
 
 
+
+
     /*
-    *    Rota Permissions Perfil
+    *    Rota Plans x Perfil
     */
-    Route::post('perfil/{id}/permission/create', 'ACL\PermissionProfileController@vincularPermissionProfile')->name('perfil.permission.attach');
+    Route::get('plans/{id}/profiles/{idprofile}/detach', 'ACL\PlanProfileController@desvincularProfilesPlan')->name('plans.profiles.detach');
+    Route::post('plans/{id}/profiles', 'ACL\PlanProfileController@vincularProfilesPlan')->name('plans.profiles.attach');
+    Route::get('plans/{id}/profiles/create', 'ACL\PlanProfileController@profilesAvailable')->name('plans.profiles.available');
+    //Route::any('permission/search', 'ACL\PermissionController@search')->name('permissionperfil.search'); seria o filtro mas não acho necessário
+    Route::get('plans/{id}/profiles', 'ACL\PlanProfileController@profiles')->name('plans.profiles');
+    Route::get('profiles/{id}/plans', 'ACL\PlanProfileController@plans')->name('profiles.plans');
+
+    /*
+    *    Rota Permissions x Perfil
+    */
+    Route::get('perfil/{id}/permission/{idPermission}/detach', 'ACL\PermissionProfileController@desvincularPermissionProfile')->name('profiles.permission.detach');
+    Route::post('perfil/{id}/permission', 'ACL\PermissionProfileController@vincularPermissionProfile')->name('profiles.permission.attach');
     Route::get('perfil/{id}/permission/create', 'ACL\PermissionProfileController@permissionAvailable')->name('perfil.permission.available');
     //Route::any('permission/search', 'ACL\PermissionController@search')->name('permissionperfil.search'); seria o filtro mas não acho necessário
     Route::get('perfil/{id}/permission', 'ACL\PermissionProfileController@permission')->name('perfil.permission');
+    Route::get('perfil/{id}/profile', 'ACL\PermissionProfileController@profiles')->name('permission.profiles');
 
     /*
     *    Rota Permissions

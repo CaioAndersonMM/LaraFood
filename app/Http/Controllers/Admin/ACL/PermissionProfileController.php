@@ -26,14 +26,29 @@ class PermissionProfileController extends Controller
         return view('admin.pages.profiles.permissions.permissions', compact('profile', 'permissions'));
     }
 
-    public function permissionAvailable($idprofile){
+    public function profiles($idPermission)
+    {
+        if (!$permission = $this->permission->find($idPermission)) {
+            return redirect()->back();
+        }
+
+        $profiles = $permission->profiles()->paginate();
+
+        return view('admin.pages.permissions.profiles.profiles', compact('permission', 'profiles'));
+    }
+
+
+
+    public function permissionAvailable(Request $request, $idprofile){
         if(!$profile = $this->profile->find($idprofile)){
             return redirect()->back();
         }
 
-        $permissions = $this->permission->paginate();
+        $filters = $request->except('_token');
 
-        return view('admin.pages.profiles.permissions.available', compact('profile', 'permissions'));
+        $permissions = $profile->permissionsAvailable($request->filter);
+
+        return view('admin.pages.profiles.permissions.available', compact('profile', 'permissions', 'filters'));
     }
 
     public function vincularPermissionProfile(Request $request, $idprofile){
@@ -50,7 +65,20 @@ class PermissionProfileController extends Controller
 
         $profile->permission()->attach($request->permission);
 
-        return redirect()->route('perfil.permission');
+        return redirect()->route('perfil.permission', $profile->id);
         
+    }
+
+    public function desvincularPermissionProfile($idProfile, $idPermission){
+        $profile = $this->profile->find($idProfile);
+        $permission = $this->permission->find($idPermission);
+
+        if (!$profile || !$permission) {
+            return redirect()->back();
+        }
+
+        $profile->permission()->detach($permission);
+
+        return redirect()->route('perfil.permission', $profile->id);
     }
 }

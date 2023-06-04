@@ -46,7 +46,7 @@
                                 </td>
                                 <td style="width: 10px;" >
                                     <a href="{{route('perfil.show', $profile->id )}}" class="btn btn-info"><i class="fas fa-eye"></i>  Ver</a>
-                                    <a href="{{route('permission.edit', $permission->id )}}" class="btn btn-warning"> Desvincular</a>
+                                    <a href="{{route('profiles.permission.detach', [$profile->id, $permission->id]) }}" class="btn btn-warning"> Desvincular</a>
                                 </td>
                                 <td>
                                     
